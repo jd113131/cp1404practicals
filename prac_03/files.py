@@ -1,11 +1,11 @@
-"""Practice reading and righting to files"""
+"""Practice for reading and writing to files"""
 
 FILE_NAME = "name.txt"
 FILE_NUMBERS = "numbers.txt"
 # 1
 name = input("what is your name? ")
 in_file = open(FILE_NAME, 'w')
-print(name, file = in_file)
+print(name, file=in_file)
 in_file.close()
 
 # 2
@@ -17,7 +17,7 @@ try:
 except FileNotFoundError:
     print("File not found")
 
-#3
+# 3
 try:
     with open(FILE_NUMBERS, 'r') as in_file:
         number = int(in_file.readline().strip())
@@ -41,4 +41,3 @@ except FileNotFoundError:
 except ValueError:
     print("Could not convert to an integer.")
     in_file.close()
-
