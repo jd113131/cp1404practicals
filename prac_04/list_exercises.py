@@ -3,6 +3,10 @@ NUMBER_OF_NUMBERS = 5
 
 def main():
     """Find information about imputed numbers"""
+    usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'BaseInterpreterInterface',
+                 'BaseStdIn', 'Command', 'ExecState', 'InteractiveConsole', 'InterpreterInterface', 'StartServer',
+                 'bob']
+    check_user(usernames)
     numbers = []
     get_numbers(numbers)
     print(f"The first number is {numbers[0]}")
@@ -23,5 +27,15 @@ def get_numbers(numbers):
             except ValueError:
                 print("Invalid input")
 
+def check_user(usernames):
+    """Check if a user is in the list of usernames"""
+    username_found = False
+    while not username_found:
+        user = input("Username: ")
+        if user in usernames:
+            print("Access granted")
+            username_found = True
+        else:
+            print("Access denied")
 
 main()
