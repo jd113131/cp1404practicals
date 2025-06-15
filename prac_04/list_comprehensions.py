@@ -34,13 +34,13 @@ lowercase_full_names = [full_name.lower() for full_name in full_names]
 
 almost_numbers = ['0', '10', '21', '3', '-7', '88', '9']
 # list comprehension to create a list of integers from the above list of strings
-numbers = [int(number) for number in almost_numbers]
+numbers = [int(almost_number) for almost_number in almost_numbers]
 
 # list comprehension to create a list of only the numbers that are
 # greater than 9 from the numbers (not strings) you just created
-numbers_greater_than_9 = [number for number in numbers if number > 9]
+long_numbers = [number for number in numbers if number > 9]
 
 # (more advanced) use a list comprehension and the join string method
 # to create a string (not list) of the last names for those full names longer than 11 characters
 # the result should be: 'Harlem, Hendrix, Lovelace'
-names_longer_than_11_characters = ', '.join(full_name.split()[1] for full_name in full_names if len(full_name) > 11)
+longer_names = ', '.join(full_name.split()[1] for full_name in full_names if len(full_name) > 11)
