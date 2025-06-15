@@ -16,4 +16,3 @@ if 9 in numbers:
     print("9 is in numbers")
 else:
     print("9 is not in numbers")
-

@@ -1,6 +1,7 @@
 """Get a list of numbers and display significant information"""
 NUMBER_OF_NUMBERS = 5
 
+
 def main():
     """Find information about imputed numbers"""
     usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'BaseInterpreterInterface',
@@ -13,7 +14,7 @@ def main():
     print(f"The last number is {numbers[-1]}")
     print(f"The smallest number is {min(numbers)}")
     print(f"The largest number is {max(numbers)}")
-    print(f"The largest number is {sum(numbers)/len(numbers)}")
+    print(f"The largest number is {sum(numbers) / len(numbers)}")
 
 
 def get_numbers(numbers):
@@ -27,6 +28,7 @@ def get_numbers(numbers):
             except ValueError:
                 print("Invalid input")
 
+
 def check_user(usernames):
     """Check if a user is in the list of usernames"""
     username_found = False
@@ -37,5 +39,6 @@ def check_user(usernames):
             username_found = True
         else:
             print("Access denied")
+
 
 main()

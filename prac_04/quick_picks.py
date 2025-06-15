@@ -5,6 +5,7 @@ NUMBERS_PER_LINE = 6
 MINIMUM = 1
 MAXIMUM = 45
 
+
 def main():
     """Quick pick program generates a set of 6 random numbers"""
     number_of_quick_picks = int(input("How many quick picks? "))
