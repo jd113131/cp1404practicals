@@ -8,24 +8,28 @@ FILENAME = "subject_data.txt"
 
 def main():
     # data does not need to be returned as its point can be used however task says to return to data
-    data = load_data()
-    for line in data:
-        print(f"{line[0]} taught by {line[1]} and has {line[2]} students")
+    subjects = load_subjects()
+    display_subjects(subjects)
 
 
-def load_data():
+def display_subjects(subjects):
+    for subject in subjects:
+        print(f"{subject[0]} taught by {subject[1]} and has {subject[2]} students")
+
+
+def load_subjects():
     """Read data from file formatted like: subject,lecturer,number of students."""
     file_data = []
     input_file = open(FILENAME)
     for line in input_file:
-        print(line)  # See what a line looks like
-        print(repr(line))  # See what a line really looks like
+        # print(line)  # See what a line looks like
+        # print(repr(line))  # See what a line really looks like
         line = line.strip()  # Remove the \n
         parts = line.split(',')  # Separate the data into its parts
-        print(parts)  # See what the parts look like (notice the integer is a string)
+        # print(parts)  # See what the parts look like (notice the integer is a string)
         parts[2] = int(parts[2])  # Make the number an integer (ignore PyCharm's warning)
-        print(parts)  # See if that worked
-        print("----------")
+        # print(parts)  # See if that worked
+        # print("----------")
         file_data.append(parts)
     input_file.close()
     return file_data
