@@ -1,7 +1,7 @@
 """
 Email and name storer
-Estimate: 14:54 minutes
-Actual:
+Estimate: 18:00 minutes
+Actual:   14:54 minutes
 """
 
 email_to_name = {}
