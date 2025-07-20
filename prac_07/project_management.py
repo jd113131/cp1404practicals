@@ -9,11 +9,11 @@ from project import Project
 
 FILENAME = "projects.txt"
 
-MAIN_MENU = """- (L)oad projects  
-- (S)ave projects  
-- (D)isplay projects  
+MAIN_MENU = """- (L)oad projects
+- (S)ave projects
+- (D)isplay projects
 - (F)ilter projects by date
-- (A)dd new project  
+- (A)dd new project
 - (U)pdate project
 - (Q)uit"""
 
@@ -34,26 +34,30 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            filter_date = datetime.datetime.strptime(
-                input("Show projects that start after date (dd/mm/yy): "), "%d/%m/%Y").date()
-            display_if_projects_starts_afterword(projects, filter_date)
+            try:
+                filter_date = datetime.datetime.strptime(
+                    input("Show projects that start after date (dd/mm/yy): "), "%d/%m/%Y").date()
+                display_if_projects_starts_afterword(projects, filter_date)
+            except ValueError:
+                print("Invalid date")
         elif choice == "A":
             print("Let's add a new project")
             projects = add_new_project(projects)
         elif choice == "U":
             update_project(projects)
-        # print(projects) # check if projects loaded
+        print(MAIN_MENU)
         choice = input(">>> ").upper()
 
-    save = input(f"Would you like to save to {FILENAME}? ")
+    save = input(f"Would you like to save to {FILENAME}? ").lower()
     if save == "yes":
         save_projects(FILENAME, projects)
+    print("Thank you for using custom-built project management software.")
 
 
 def load_projects(filename):
     """Load projects from a file."""
     projects = []
-    with open(filename, "r") as infile:
+    with open(filename, "r", encoding="utf-8") as infile:
         infile.readline()  # read first heading line
         for line in infile:
             parts = line.strip().split("\t")
@@ -67,7 +71,7 @@ def load_projects(filename):
 
 def save_projects(filename, projects):
     """Save projects to a file."""
-    with open(filename, "w") as outfile:
+    with open(filename, "w", encoding="utf-8") as outfile:
         # save first heading line
         print("Name	Start Date	Priority	Cost Estimate	Completion Percentage", file=outfile)
         for project in projects:
@@ -77,11 +81,11 @@ def save_projects(filename, projects):
                   f"\t{project.cost_estimate}"
                   f"\t{project.completion_percentage}"
                   , file=outfile)
-    return
 
 
 def display_projects(projects):
     """Display projects in two groups, completed and incomplete projects."""
+    projects.sort()
     print("Incomplete projects: ")
     for project in projects:
         if not project.is_complete():
@@ -90,9 +94,10 @@ def display_projects(projects):
     for project in projects:
         if project.is_complete():
             print(project)
-    return
+
 
 def display_if_projects_starts_afterword(projects, filter_date):
+    """Display projects that start after a certain date."""
     print("Incomplete projects: ")
     for project in projects:
         if project.starts_after(filter_date):
@@ -101,13 +106,31 @@ def display_if_projects_starts_afterword(projects, filter_date):
 
 def add_new_project(projects):
     """Add a new project to the list of projects."""
-    name = input("Name: ")
-    start_date = input("Start date (dd/mm/yy): ")
-    priority = int(input("Priority: "))
-    cost_estimate = float(input("Cost estimate: "))
-    completion_percentage = int(input("Completion percentage: "))
+    name = get_valid_input("Name: ", str)
+
+    while True:
+        start_date = input("Enter start date (dd/mm/yy): ")
+        try:
+            datetime.datetime.strptime(start_date, "%d/%m/%Y")
+            break
+        except ValueError:
+            print("Invalid date")
+
+    priority = get_valid_input("Priority: ", int)
+    cost_estimate = get_valid_input("Cost estimate: ", float)
+    completion_percentage = get_valid_input("Completion percentage: ", int)
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
     return projects
+
+
+def get_valid_input(question, input_type):
+    """Get input from the user with error handling."""
+    while True:
+        try:
+            return input_type(input(question))
+        except ValueError:
+            print("Invalid input")
+
 
 def update_project(projects):
     """Update a project completion rate and priority in the list of projects."""
@@ -116,7 +139,7 @@ def update_project(projects):
     project_choice = int(input("Project Choice: "))
     print(projects[project_choice])
     try:
-        new_percentage =  int(input("New Percentage: "))
+        new_percentage = int(input("New Percentage: "))
         projects[project_choice].completion_percentage = new_percentage
     except ValueError:
         pass
@@ -125,5 +148,6 @@ def update_project(projects):
         projects[project_choice].priority = new_priority
     except ValueError:
         pass
+
 
 main()
