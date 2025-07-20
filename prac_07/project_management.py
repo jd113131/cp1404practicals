@@ -21,13 +21,14 @@ def main():
     print("Welcome to Pythonic Project Management")
     projects = load_projects(FILENAME)
     print(MAIN_MENU)
-    choice = input(">>>").upper()
+    choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":
-            filename = input("Enter project file name:")
+            filename = input("Enter project file name: ")
             projects = load_projects(filename)
         elif choice == "S":
-            pass
+            filename = input("Enter file to save projects to: ")
+            save_projects(filename, projects)
         elif choice == "D":
             pass
         elif choice == "F":
@@ -39,7 +40,7 @@ def main():
         elif choice == "Q":
             pass
         # print(projects) # check if projects loaded
-        choice = input(">>>").upper()
+        choice = input(">>> ").upper()
 
 def load_projects(filename):
     """Load projects from a file."""
@@ -54,6 +55,19 @@ def load_projects(filename):
             projects.append(Project(*parts))
     print(f"Loaded {len(projects)} projects from {filename}")
     return projects
+
+def save_projects(filename, projects):
+    """Save projects to a file."""
+    with open(filename, "w") as outfile:
+        # save first heading line
+        print("Name	Start Date	Priority	Cost Estimate	Completion Percentage", file=outfile)
+        for project in projects:
+            print(f"{project.name}"
+                  f"\t{project.start_date}"
+                  f"\t{project.priority}"
+                  f"\t{project.cost_estimate}"
+                  f"\t{project.completion_percentage}"
+                  , file=outfile)
 
 
 main()
