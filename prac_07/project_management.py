@@ -1,7 +1,7 @@
 """
 Programming project management task
 Estimate: 50:00 minutes
-Actual: 25:10 minutes
+Actual: ~ 2 hours 50 minutes
 """
 import datetime
 
