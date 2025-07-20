@@ -40,13 +40,14 @@ def main():
         elif choice == "A":
             print("Let's add a new project")
             projects = add_new_project(projects)
-            pass
         elif choice == "U":
-            pass
-        elif choice == "Q":
-            pass
+            update_project(projects)
         # print(projects) # check if projects loaded
         choice = input(">>> ").upper()
+
+    save = input(f"Would you like to save to {FILENAME}? ")
+    if save == "yes":
+        save_projects(FILENAME, projects)
 
 
 def load_projects(filename):
@@ -58,7 +59,7 @@ def load_projects(filename):
             parts = line.strip().split("\t")
             parts[2] = int(parts[2])
             parts[3] = float(parts[3])
-            parts[4] = float(parts[4])
+            parts[4] = int(parts[4])
             projects.append(Project(*parts))
     print(f"Loaded {len(projects)} projects from {filename}")
     return projects
@@ -71,7 +72,7 @@ def save_projects(filename, projects):
         print("Name	Start Date	Priority	Cost Estimate	Completion Percentage", file=outfile)
         for project in projects:
             print(f"{project.name}"
-                  f"\t{project.start_date}"
+                  f"\t{project.start_date.strftime("%d/%m/%Y")}"
                   f"\t{project.priority}"
                   f"\t{project.cost_estimate}"
                   f"\t{project.completion_percentage}"
@@ -104,8 +105,25 @@ def add_new_project(projects):
     start_date = input("Start date (dd/mm/yy): ")
     priority = int(input("Priority: "))
     cost_estimate = float(input("Cost estimate: "))
-    completion_percentage = float(input("Completion percentage: "))
+    completion_percentage = int(input("Completion percentage: "))
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
     return projects
+
+def update_project(projects):
+    """Update a project completion rate and priority in the list of projects."""
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
+    project_choice = int(input("Project Choice: "))
+    print(projects[project_choice])
+    try:
+        new_percentage =  int(input("New Percentage: "))
+        projects[project_choice].completion_percentage = new_percentage
+    except ValueError:
+        pass
+    try:
+        new_priority = int(input("New Priority: "))
+        projects[project_choice].priority = new_priority
+    except ValueError:
+        pass
 
 main()
