@@ -5,9 +5,9 @@ class SilverServiceTaxi(Taxi):
     """Generate SilverServiceTaxi class"""
     flagfall = 4.5
 
-    def __init__(self, fanciness, **kwargs):
+    def __init__(self, name, fuel, fanciness):
         """Initialise a UnreliableCar instance."""
-        super().__init__(**kwargs)
+        super().__init__(name, fuel)
         self.price_per_km = Taxi.price_per_km * fanciness
 
     def get_fare(self):
